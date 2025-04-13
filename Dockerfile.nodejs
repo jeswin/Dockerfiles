@@ -1,0 +1,16 @@
+FROM ubuntu:24.04
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y curl git xz-utils && \
+    curl -fsSL https://nodejs.org/dist/v22.0.0/node-v22.0.0-linux-x64.tar.xz -o node.tar.xz && \
+    mkdir -p /usr/local/lib/nodejs && \
+    tar -xJf node.tar.xz -C /usr/local/lib/nodejs && \
+    rm node.tar.xz && \
+    ln -s /usr/local/lib/nodejs/node-v22.0.0-linux-x64/bin/node /usr/bin/node && \
+    ln -s /usr/local/lib/nodejs/node-v22.0.0-linux-x64/bin/npm /usr/bin/npm && \
+    ln -s /usr/local/lib/nodejs/node-v22.0.0-linux-x64/bin/npx /usr/bin/npx && \
+    npm install -g npm@latest && \
+    npm install -g typescript
+
+WORKDIR /home/project
